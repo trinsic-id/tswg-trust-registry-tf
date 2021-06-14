@@ -1,6 +1,64 @@
 # Trust Registry Specification
 A trust registry is a mechanism to ensure an issuer is trusted by a recognizable third-party
-## Trust Registry Requirements
+## Trinsic Trust Registry Requirements
+
+1. Trust registry MUST be identified by a DID generated using the DID:web method.
+3. MUST support trust registry service endpoint resolution using DID:web method.
+4. MUST provide a registration method to add new issuers
+5. SHOULD provide a revocation method for issuers and governing authorities
+6. SHOULD provide a access request method for parties interested in using the registry - e.g. a verifier can request the provider to access the registry 
+7. MUST support queries consisting of the following parameters to check issuer authorization:
+7.1. Trust registry DID
+7.2. Issuer ID
+7.3. Verifiable credential type URI
+9. MUST return exactly one of the following status values:
+9.1. Not found
+9.2. Current
+9.3. Expired (not renewed after the previous valid registration period)
+9.4. Terminated (voluntarily terminated by the issuer)
+9.5. Revoked (involuntarily terminated by the governing authority)
+10. MUST return exactly two date values (formatted to comply with RFC3339, as UTC/Z - with no
+offset):
+10.1. AuthorizationStartDate - which indicates the data that the Issuer’s authorization started.
+10.2. AuthorizationEndDate - which may be null for Issuers that are currently, at time of the
+query, an Authorized Issuer. If an Issuer is not currently an Authorized Issuer, the date
+that they lost that status will be returned. 
+
+### Issuers
+GHP-compliant issuers:
+
+1. MUST be identified by an issuer DID generated using a GHP-compliant DID method.
+2. MUST register the issuer DID in the trust registry of any specific EGF under which the issuer
+wishes to issue GHP-compliant credentials.
+3. MUST issue GHP-compliant verifiable credentials that meet the following requirements:
+3.1. The verifiable credential includes a claim specified in the GHP Verifiable Credentials
+Specification whose value is the trust registry DID for the specific EGF under which the
+credential or pass was issued.
+3.2. The value of the verifiable credential issuer ID is the issuer DID registered in the trust
+registry identified by the trust registry DID.
+3.3. The value of the verifiable credential type is a GHP credential type URI specified in the
+GHP EGF. 
+### Recommended Timelines
+#### Phase One (30 Day Horizon)
+
+GHP-compliant specific governing authorities:
+
+1. SHOULD manually maintain a list of authorized issuers in a DID document using a did:web: URL
+as specified GHP Trust Registry Protocol Specification.
+1. SHOULD participate in development of the GHP Trust Registry Protocol Specification.
+1. SHOULD publish their trust registry development plans.
+#### Phase Two (90 Day Horizon)
+GHP-compliant specific governing authorities:
+
+1. SHOULD publish their trust registry policies and specifications in their specific EGF.
+2. SHOULD have their trust registry implemented.
+3. SHOULD pass a GHP-compliant trust registry protocol test suite.
+4. SHOULD maintain a list of the trust registry DIDs of other GHP-compliant peer governing
+authorities.
+#### Phase Three (180 Day Horizon)
+GHP-compliant specific governing authorities:
+    1. MUST have implemented a GHP-compliant trust registry.
+    2. MUST meet all requirements in their specific EGF. 
 There is one operation initially proposed here for acceptance as a standard - Check that an issuer is part of a registry.
 
 The registry will be located at a web endpoint accessible by an authorized http GET request. 
@@ -70,8 +128,8 @@ Each of these three fields can be found from the verifiable credential.
     - `expired`: issuer's authorization was not renewed after the previous valid registration period
     - `terminated`: voluntarily terminated by the issuer - not in scope
     - `revoked`: involuntarily terminated by the governing authority
-- `authorization-start-date` is the ISO 8601 datetime string of when the issuer was registered
-- `authorization-end-date` is the ISO 8601 datetime string of the issuer's expiration date on the registry
+- `authorization-start-date` is the [RFC3339](https://tools.ietf.org/html/rfc3339) datetime string of when the issuer was registered
+- `authorization-end-date` is the [RFC3339](https://tools.ietf.org/html/rfc3339) datetime string of the issuer's expiration date on the registry
 ----
 
 **All the below endpoints are merely suggestions for the implementor**
@@ -82,29 +140,25 @@ Each of these three fields can be found from the verifiable credential.
 {
    "issuer": uri
    "type": uri
-   "authorization-start-date": iso 8601 date string
-   "authorization-end-date": iso 8601 date string
+   "authorization-start-date": date string
+   "authorization-end-date": date string
 }
 ```
 
 **Response**
 ```
  {
-    "registry": did:web uri,
     "issuer": uri, 
-    "type": uri,
-    "capability, uri
-}
+    "type": uri
+ }
 ```
 
 ### Revoke Capability
 **Request**
 ```
 {
-    "registry": uri,
-    "entity": uri, 
-    "object": uri,
-    "capability, uri
+    "issuer": uri, 
+    "type": uri
 }
 ```
 
@@ -115,6 +169,7 @@ Each of these three fields can be found from the verifiable credential.
 }
 ```
 
+---
 
 ### A GHP-compliant trust registry:
 
