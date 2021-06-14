@@ -1,6 +1,120 @@
 # Trust Registry Specification
+A trust registry is a mechanism to ensure an issuer is trusted by a recognizable third-party
+## Trust Registry Requirements
+There is one operation initially proposed here for acceptance as a standard - Check that an issuer is part of a registry.
 
-## GHP Trust Registry Requirements
+The registry will be located at a web endpoint accessible by an authorized http GET request. 
+
+
+The CheckIssuer endpoint is expected to be used by verifiers and holders during a credential exchange right after receiving the verifiable credential and verifying its authenticity. 
+
+Example credential:
+```
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://www.w3.org/2018/credentials/examples/v1"
+  ],
+  "id": "http://example.edu/credentials/3732",
+  "type": ["VerifiableCredential", "ProofOfAgeCredential"],
+  "issuer": "https://example.edu/issuers/14",
+  "registry": "did:web:cloud.trinsic.id:example-registry"
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "ageOver": 21
+    },
+  "proof": { ..
+    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+     ...
+   }
+}
+```
+### Check Registry for Issuer
+**Request**
+
+an http get request should be made to the registry endpoint resolved by the did:web: https://cloud.trinsic.id/example-registry.
+
+**Request Model**:
+```
+{
+    "issuer": uri,
+    "type": uri
+}
+```
+
+**Example Request**:
+```
+{
+    "issuer": "https://example.edu/issuers/14", 
+    "type": "https://www.w3.org/2018/credentials/examples/v1#ProofOfAgeCredential",
+}
+```
+
+- `issuer` is the identifier of the issuer. This will be the ID that the issuer uses in the verifiable credentials it issues. It should be either an http URL or a DID.
+- `type`is the full type uri of the type that the issuer is authorized to issue. 
+
+Each of these three fields can be found from the verifiable credential. 
+
+**Response**
+```
+{
+    "status": enum,
+    "authorization-start-date": date,
+    "authorization-end-date": date
+}
+```
+- `status` indicates the status of the issuer. The following enumerations are possible statuses:
+    - `current`: the issuer is currently authorized to issue that type
+    - `not found`: the combination of issuer & type are not found on the registry
+    - `expired`: issuer's authorization was not renewed after the previous valid registration period
+    - `terminated`: voluntarily terminated by the issuer - not in scope
+    - `revoked`: involuntarily terminated by the governing authority
+- `authorization-start-date` is the ISO 8601 datetime string of when the issuer was registered
+- `authorization-end-date` is the ISO 8601 datetime string of the issuer's expiration date on the registry
+----
+
+**All the below endpoints are merely suggestions for the implementor**
+### Register Issuer 
+
+**Request**
+```
+{
+   "issuer": uri
+   "type": uri
+   "authorization-start-date": iso 8601 date string
+   "authorization-end-date": iso 8601 date string
+}
+```
+
+**Response**
+```
+ {
+    "registry": did:web uri,
+    "issuer": uri, 
+    "type": uri,
+    "capability, uri
+}
+```
+
+### Revoke Capability
+**Request**
+```
+{
+    "registry": uri,
+    "entity": uri, 
+    "object": uri,
+    "capability, uri
+}
+```
+
+**Response**
+````
+{
+    "status-code": 200
+}
+```
+
 
 ### A GHP-compliant trust registry:
 
