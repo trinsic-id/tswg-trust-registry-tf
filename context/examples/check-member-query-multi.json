@@ -1,0 +1,23 @@
+{
+  "@context": "https://trustoverip.github.io/tswg-trust-registry-tf/context/v1",
+  "id": "https://example.com/",
+  "type": ["AuthoritativeIssuer", "AuthoritativeVerifier"],
+  "credential": [
+    "http://schema.org/CredentialOne",
+    {
+      "id": "http://schema.org/CredentialTwo",
+      "status": "Revoked"
+    }
+  ],
+  "presentation": [
+    {
+      "id": "http://schema.org/PresentationOne",
+      "validUntil": "1-1-2099",
+      "governanceFamework": "https://my.health.org/ghp-egf-ext.pdf"
+    },
+    "http://schema.org/PresentationTwo"
+  ],
+  "governanceFamework": "https://my.health.org/ghp-egf.pdf",
+  "status": "Expired",
+  "validUntil": "1-1-1999"
+}
