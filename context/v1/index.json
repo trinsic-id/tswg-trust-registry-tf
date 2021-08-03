@@ -4,52 +4,55 @@
     "@protected": true,
     "tr": "https://trustoverip.org/trustRegistry/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "@vocab": "https://trustoverip.org/trustRegistry/",
     "type": "@type",
     "id": "@id",
+    "TrustRegistryList": {
+      "@id": "tr:TrustRegistryList",
+      "@context": {
+        "@version": 1.1,
+        "@protected": true,
+        "items": {
+          "@id": "tr:items",
+          "@container": "@set"
+        }
+      }
+    },
     "AuthoritativeIssuer": {
+      "@id": "tr:AuthoritativeIssuer",
       "@context": {
         "@protected": true,
         "@version": 1.1,
-        "credentials": {
+        "credential": {
+          "@id": "tr:credential",
+          "@type": "@id",
           "@container": "@set"
         }
       }
     },
     "AuthoritativeVerifier": {
+      "@id": "tr:AuthoritativeVerifier",
       "@context": {
         "@protected": true,
         "@version": 1.1,
-        "presentations": {
+        "presentation": {
+          "@id": "tr:presentation",
+          "@type": "@id",
           "@container": "@set"
         }
       }
     },
-    "TrustRegistryCredential": "TrustRegistryCredential",
-    "TrustRegistryList": {
-      "@context": {
-        "@version": 1.1,
-        "@protected": true,
-        "items": {
-          "@container": "@set"
-        }
-      }
+    "governanceFramework": {
+      "@id": "tr:governanceFramework",
+      "@type": "@id"
     },
-    "TrustRegistryService": {
-      "@id": "tr:TrustRegistryService",
-      "@context": {
-        "@version": 1.1,
-        "@protected": true,
-        "id": "@id",
-        "type": "@type",
-        "protocolDefinition": {
-          "@id": "tr:protocolDefinition",
-          "@type": "@id"
-        }
-      }
+    "validFrom": {
+      "@id": "tr:validFrom",
+      "@type": "xsd:dateTime"
     },
-    "Terminated": "tr:status#Terminated",
-    "Revoked": "tr:status#Revoked",
+    "validTo": {
+      "@id": "tr:validTo",
+      "@type": "xsd:dateTime"
+    },
     "status": {
       "@id": "tr:status",
       "@type": "@vocab",
@@ -65,75 +68,17 @@
         "Expired": {
           "@id": "tr:Expired",
           "@type": "@id"
+        },
+        "Terminated": {
+          "@id": "tr:Terminated",
+          "@type": "@id"
+        },
+        "Revoked": {
+          "@id": "tr:Revoked",
+          "@type": "@id"
         }
       }
     },
-    "governanceFramework": {
-      "@id": "tr:governanceFramework",
-      "@type": "@id"
-    },
-    "validFrom": {
-      "@id": "tr:validFrom",
-      "@type": "xsd:dateTime"
-    },
-    "validTo": {
-      "@id": "validTo",
-      "@type": "xsd:dateTime"
-    }
-  },
-  "type": "TrustRegistryList",
-  "items": [
-    {
-      "type": "AuthoritativeIssuer",
-      "id": "did:example:1",
-      "credentials": [
-        {
-          "type": "This",
-          "validFrom": "12-12-2022",
-          "governanceFramework": "https://governance",
-          "status": "Expired"
-        },
-        {
-          "type": "That",
-          "validFrom": "12-12-2022",
-          "status": "Current"
-        }
-      ]
-    },
-    {
-      "type": "AuthoritativeVerifier",
-      "id": "did:key:2",
-      "presentations": [
-        {
-          "type": "ThisPresentation",
-          "validFrom": "12-12-2022"
-        },
-        {
-          "type": "ThatPresentation",
-          "validFrom": "12-12-2022",
-          "status": "Current"
-        }
-      ]
-    },
-    {
-      "type": [
-        "AuthoritativeIssuer",
-        "AuthoritativeVerifier"
-      ],
-      "id": "did:ion:123",
-      "credentials": [
-        {
-          "type": "That",
-          "validFrom": "12-12-2022",
-          "status": "Current"
-        }
-      ],
-      "presentations": [
-        {
-          "type": "ThisPresentation",
-          "validFrom": "12-12-2022"
-        }
-      ]
-    }
-  ]
+    "TrustRegistryCredential": "tr:TrustRegistryCredential"
+  }
 }

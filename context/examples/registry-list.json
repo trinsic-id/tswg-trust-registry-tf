@@ -1,0 +1,24 @@
+{
+  "@context": ["https://trustoverip.github.io/tswg-trust-registry-tf/context/v1"],
+  "id": "http://my.health.gov/ghp-egf",
+  "type": "TrustRegistryList",
+  "governanceFramework": "https://my.health.org/ghp-egf.pdf",
+  "items": [
+    {
+      "id": "did:example:alice",
+      "type": ["AuthoritativeIssuer", "AuthoritativeVerifier"],
+      "credential": [
+        { "id": "http://schema.org/CredentialOne", "validTo": "1-1-2021" },
+        "http://schema.org/CredentialTwo"
+      ],
+      "presentation": [{ "id": "http://schema.org/PresentationOne", "status": "Expired" }]
+    },
+    {
+      "id": "did:example:bob",
+      "type": "AuthoritativeIssuer",
+      "credential": "http://another.org"
+    }
+  ],
+  "validTo": "1-1-2030",
+  "status": "Current"
+}
