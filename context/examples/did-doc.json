@@ -1,0 +1,18 @@
+{
+  "@context": [
+    {
+      "@base": "https://my.gov/authority"
+    },
+    "https://www.w3.org/ns/did/v1",
+    "https://trustoverip.github.io/tswg-trust-registry-tf/context/v1"
+  ],
+  "id": "https://my.gov/authority",
+  "service": [
+    {
+      "id": "#service-1",
+      "type": "TrustRegistryService",
+      "serviceEndpoint": "http://service.com/tr/endpoint",
+      "protocolDefinition": "http://service.com/tr/definition"
+    }
+  ]
+}
