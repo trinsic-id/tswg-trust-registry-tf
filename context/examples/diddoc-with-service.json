@@ -10,9 +10,9 @@
   "service": [
     {
       "id": "#service-1",
-      "type": "TrustRegistryService",
-      "serviceEndpoint": "http://service.com/tr/endpoint",
-      "protocolDefinition": "http://service.com/tr/definition"
+      "type": "TrustRegistryService2021",
+      "serviceEndpoint": "https://service.com/registry/endpoint",
+      "protocolDefinition": "https://api.swaggerhub.com/apis/darrellodonnell/GHP.TrustRegistry/0.1.0"
     }
   ]
 }
