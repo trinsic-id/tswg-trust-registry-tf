@@ -27,6 +27,14 @@
           "@type": "@id",
           "@container": "@set"
         }
+      },
+      "validFrom": {
+        "@id": "tr:validFrom",
+        "@type": "xsd:dateTime"
+      },
+      "validUntil": {
+        "@id": "tr:validUntil",
+        "@type": "xsd:dateTime"
       }
     },
     "AuthoritativeVerifier": {
@@ -39,19 +47,19 @@
           "@type": "@id",
           "@container": "@set"
         }
+      },
+      "validFrom": {
+        "@id": "tr:validFrom",
+        "@type": "xsd:dateTime"
+      },
+      "validUntil": {
+        "@id": "tr:validUntil",
+        "@type": "xsd:dateTime"
       }
     },
     "governanceFramework": {
       "@id": "tr:governanceFramework",
       "@type": "@id"
-    },
-    "validFrom": {
-      "@id": "tr:validFrom",
-      "@type": "xsd:dateTime"
-    },
-    "validTo": {
-      "@id": "tr:validTo",
-      "@type": "xsd:dateTime"
     },
     "status": {
       "@id": "tr:status",
@@ -78,6 +86,10 @@
           "@type": "@id"
         }
       }
+    },
+    "statusDetail": {
+      "@id": "tr:statusDetail",
+      "@container": "@json"
     },
     "TrustRegistryCredential": "tr:TrustRegistryCredential"
   }
