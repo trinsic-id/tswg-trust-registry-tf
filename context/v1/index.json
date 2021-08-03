@@ -91,6 +91,19 @@
       "@id": "tr:statusDetail",
       "@container": "@json"
     },
+    "TrustRegistryService2021": {
+      "@id": "tr:TrustRegistryService2021",
+      "@context": {
+        "@version": 1.1,
+        "@protected": true,
+        "id": "@id",
+        "type": "@type",
+        "protocolDefinition": {
+          "@id": "tr:protocolDefinition",
+          "@type": "@id"
+        }
+      }
+    },
     "TrustRegistryCredential": "tr:TrustRegistryCredential"
   }
 }
