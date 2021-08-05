@@ -12,7 +12,7 @@
       "id": "#service-1",
       "type": "TrustRegistryService2021",
       "serviceEndpoint": "https://service.com/registry/endpoint",
-      "protocolDefinition": "https://service.com/tr/swagger.json"
+      "protocolDefinition": "https://api.swaggerhub.com/apis/darrellodonnell/GHP.TrustRegistry/0.1.0"
     }
   ]
 }
