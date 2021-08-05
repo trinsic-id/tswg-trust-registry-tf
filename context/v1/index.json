@@ -61,6 +61,10 @@
       "@id": "tr:governanceFramework",
       "@type": "@id"
     },
+    "trustRegistry": {
+      "@id": "tr:trustRegistry",
+      "@type": "@id"
+    },
     "status": {
       "@id": "tr:status",
       "@type": "@vocab",
@@ -104,6 +108,7 @@
         }
       }
     },
+    "FrameworkDefinition": "tr:FrameworkDefinition",
     "TrustRegistryCredential": "tr:TrustRegistryCredential"
   }
 }
